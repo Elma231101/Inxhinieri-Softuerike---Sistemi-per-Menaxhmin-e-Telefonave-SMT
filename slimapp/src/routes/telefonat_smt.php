@@ -17,7 +17,7 @@ $app->add(function ($req, $res, $next) {
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
-// Merr te dhenat e gjitheve femijeve ne jetimore
+// Merr te dhenat e gjitheve telefonave
 $app->get('/api/telefonat_smt', function (Request $request, Response $response) {
     $sql = 'SELECT * FROM telefonat_smt';
 	try{
@@ -36,9 +36,9 @@ $app->get('/api/telefonat_smt', function (Request $request, Response $response) 
 	}
 });
 
-//merr vetem te dhenat e nje femiu nga jetimorja 
+//merr vetem te dhenat e telefonit
 $app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $response) {
-	//per te marre vetem nje femi sipas ID krijohen variablat
+	//per te marre vetem nje te dhene telefoni sipas ID krijohen variablat
 	$ID = $request->getAttribute('ID');
 	
     $sql = "SELECT * FROM telefonat_smt WHERE ID = '$ID'";
@@ -59,7 +59,7 @@ $app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $respon
 });
 
 
-//shtimi i te dhenave te femiut
+//shtimi i te dhenave te telefonit
 $app->post('/api/telefoni_smt/add', function (Request $request, Response $response) {
 	
 	$ModeliTelefonit_SMT = $request->getParam('ModeliTelefonit_SMT');
@@ -97,10 +97,10 @@ $app->post('/api/telefoni_smt/add', function (Request $request, Response $respon
 
 
 
-//Modifikimi i te dhenave te femiut ne jetimore
+//Modifikimi i te dhenave te telefonit
 
 $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response $response) {
-	//per te marre vetem nje femi sipas ID krijohen variablat
+	//per te marre vetem nje telefon sipas ID krijohen variablat
 
 	$ID = $request->getAttribute('ID');
 	$ModeliTelefonit_SMT = $request->getParam('ModeliTelefonit_SMT');
@@ -140,9 +140,9 @@ $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response 
 });
 
 
-//Fshirja e te dhenave te femiut ne jetimore
+//Fshirja e te dhenave te telefonit
 $app->delete('/api/telefoni_smt/delete/{ID}', function (Request $request, Response $response) {
-	//per te marre vetem nje femi sipas ID krijohen variablat
+	//per te marre vetem nje telefon sipas ID krijohen variablat
 	$ID = $request->getAttribute('ID');
 	
     $sql = "DELETE FROM telefonat_smt WHERE ID = '$ID'";
