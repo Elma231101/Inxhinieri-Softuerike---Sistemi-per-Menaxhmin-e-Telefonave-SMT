@@ -2,8 +2,8 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-//kerkesa '../vendor/autoload.php';
-//kerkesa 'db.php';
+//e nevojshme '../vendor/autoload.php';
+//e nevojshme 'db.php';
 
 $app = new \Slim\App();
 
@@ -17,11 +17,11 @@ $app->add(function ($req, $res, $next) {
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
-// Merr  te gjithe telefonat_smt
+// Merr te dhenat e gjitheve femijeve ne jetimore
 $app->get('/api/telefonat_smt', function (Request $request, Response $response) {
     $sql = 'SELECT * FROM telefonat_smt';
 	try{
-		//Merr objektin db
+		//merr objektet ne db
 		$db = new db();
 		//lidhja
 		$db=$db->connect();
@@ -36,16 +36,16 @@ $app->get('/api/telefonat_smt', function (Request $request, Response $response) 
 	}
 });
 
-// Merr thjeshte telefoni_smt
+//merr vetem te dhenat e nje femiu nga jetimorja 
 $app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $response) {
-	//Merr ID-ne telefoni_smt, krijoni variabel
+	//per te marre vetem nje femi sipas ID krijohen variablat
 	$ID = $request->getAttribute('ID');
 	
     $sql = "SELECT * FROM telefonat_smt WHERE ID = '$ID'";
 	try{
-		//Merr objektin e db
+		//merr objektet ne db
 		$db = new db();
-		//Lidhja
+		//lidhja
 		$db=$db->connect();
 		
 		$stmt = $db->query($sql);
@@ -59,7 +59,7 @@ $app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $respon
 });
 
 
-// Shto telefoni_smt
+//shtimi i te dhenave te femiut
 $app->post('/api/telefoni_smt/add', function (Request $request, Response $response) {
 	
 	$ModeliTelefonit_SMT = $request->getParam('ModeliTelefonit_SMT');
@@ -70,12 +70,12 @@ $app->post('/api/telefoni_smt/add', function (Request $request, Response $respon
 	$CmimiTelefonit_SMT = $request->getParam('CmimiTelefonit_SMT');
 	$GarancioniTelefonit_SMT = $request->getParam('GarancioniTelefonit_SMT');
 	
-    $sql = "INSERT INTO telefonat_smt (ModeliTelefonit_SMT, SistemiOperativTelefonit_SMT, HapesiraTelefonit_SMT, NumriModelitTelefonit_SMT, NumriSerikTelefonit_SMT, CmimiTelefonit_SMT, GarancioniTelefonit_SMT) 
+    $sql = "INSERT INTO telefonat_smt (ModeliTelefonit_SMT, SistemiOperativTelefonit_SMT,HapesiraTelefonit_SMT, NumriModelitTelefonit_SMT, NumriSerikTelefonit_SMT, CmimiTelefonit_SMT,GarancioniTelefonit_SMT) 
 	VALUES(:ModeliTelefonit_SMT, :SistemiOperativTelefonit_SMT, :HapesiraTelefonit_SMT, :NumriModelitTelefonit_SMT, :NumriSerikTelefonit_SMT, :CmimiTelefonit_SMT, :GarancioniTelefonit_SMT)";
 	try{
-		//Merr objektin e db
+		////merr objektet ne db
 		$db = new db();
-		//Lidhja 
+		//lidhja 
 		$db=$db->connect();
 		
 		$stmt = $db->prepare($sql);
@@ -88,7 +88,7 @@ $app->post('/api/telefoni_smt/add', function (Request $request, Response $respon
 		$stmt->bindParam(':GarancioniTelefonit_SMT',$GarancioniTelefonit_SMT);
 		
 		$stmt->execute();
-		echo'{"notice":{"text":"Telefoni u shtua me suksese"}';
+		echo'{"notice":{"text":"Te dhenat e Telefonit u shtuan me sukses!"}';
 	} catch(PDOException $e){
 		echo '{"error":{"text": '.$e->getMessage().'}';
 	}
@@ -97,9 +97,11 @@ $app->post('/api/telefoni_smt/add', function (Request $request, Response $respon
 
 
 
-// Modifiko telefoni_smt
+//Modifikimi i te dhenave te femiut ne jetimore
+
 $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response $response) {
-	//Merr ID-ne telefoni_smt, krijoni variabel
+	//per te marre vetem nje femi sipas ID krijohen variablat
+
 	$ID = $request->getAttribute('ID');
 	$ModeliTelefonit_SMT = $request->getParam('ModeliTelefonit_SMT');
 	$SistemiOperativTelefonit_SMT = $request->getParam('SistemiOperativTelefonit_SMT');
@@ -118,9 +120,9 @@ $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response 
 	GarancioniTelefonit_SMT = :GarancioniTelefonit_SMT
 	WHERE ID = '$ID'";
 	try{
-		//Merr objektin e db
+		//merr objektet e db
 		$db = new db();
-		//Lidhja
+		//lidhja
 		$db=$db->connect();
 		$stmt = $db->prepare($sql);
 		$stmt->bindParam(':ModeliTelefonit_SMT',$ModeliTelefonit_SMT);
@@ -131,28 +133,28 @@ $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response 
 		$stmt->bindParam(':CmimiTelefonit_SMT',$CmimiTelefonit_SMT);
 		$stmt->bindParam(':GarancioniTelefonit_SMT',$GarancioniTelefonit_SMT);
 		$stmt->execute();
-		echo'{"notice":{"text":"Telefoni u modifikua me sukses"}';
+		echo'{"notice":{"text":"Te dhenat e Telefonit u modifikuan me sukses!"}';
 	} catch(PDOException $e){
 		echo '{"error":{"text": '.$e->getMessage().'}';
 	}
 });
 
 
-// Fshije telefoni_smt
+//Fshirja e te dhenave te femiut ne jetimore
 $app->delete('/api/telefoni_smt/delete/{ID}', function (Request $request, Response $response) {
-	//Merr ID-ne telefoni_smt, krijoni variabel
+	//per te marre vetem nje femi sipas ID krijohen variablat
 	$ID = $request->getAttribute('ID');
 	
     $sql = "DELETE FROM telefonat_smt WHERE ID = '$ID'";
 	try{
-		//Merr objektin e db
+		//merr objektet e db
 		$db = new db();
-		//Lidhja 
+		//lidhja
 		$db=$db->connect();
 		
 		$stmt = $db->prepare($sql);
 		$stmt->execute();
-		echo'{"notice":{"text":"Telefoni u fshije me sukses"}';
+		echo'{"notice":{"text":"Te dhenat e Telefonit jane fshire me sukses!"}';
 		
 	} catch(PDOException $e){
 		echo '{"error":{"text": '.$e->getMessage().'}';

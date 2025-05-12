@@ -1,17 +1,20 @@
 <?php
-    class db{
-        // Vetite
-        private $dbhost = 'localhost';
-        private $dbuser = 'root';
-        private $dbpass = '';
-        private $dbname = 'smt';
+    class db {
+    // Pasqyrimi
+    private $dbhost = 'localhost';
+    private $dbuser = 'root';
+    private $dbpass = '';
+    private $dbname = 'smt';
+    private $dbport = '3307'; // Vendosim portën këtu
 
-        // Lidhja
-        public function connect(){
-            $mysql_connect_str = "mysql:host=$this->dbhost;dbname=$this->dbname";
-            $dbConnection = new PDO($mysql_connect_str, $this->dbuser, $this->dbpass);
-            $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $dbConnection;
-        }
+    // Lidhja
+    public function connect() {
+        // Ndrysho lidhjen për të përfshirë portin
+        $mysql_connect_str = "mysql:host=$this->dbhost;port=$this->dbport;dbname=$this->dbname";
+        $dbConnection = new PDO($mysql_connect_str, $this->dbuser, $this->dbpass);
+        $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $dbConnection;
     }
+}
+
 	?>
