@@ -17,7 +17,7 @@ $app->add(function ($req, $res, $next) {
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
-// Merr te dhenat e gjitheve telefonave
+// Merr te dhenat e gjithe telefonave
 $app->get('/api/telefonat_smt', function (Request $request, Response $response) {
     $sql = 'SELECT * FROM telefonat_smt';
 	try{
