@@ -1,6 +1,6 @@
 <?php
     class db{
-        // Vetite
+        // Pasqyrimi
         private $dbhost = 'localhost';
         private $dbuser = 'root';
         private $dbpass = '';

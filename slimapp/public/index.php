@@ -6,9 +6,9 @@ require '../vendor/autoload.php';
 require '../src/config/db.php';
 
 $app = new \Slim\App();
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write("Hello, $name");
+$app->get('/Pershendetje/{emri}', function (Request $request, Response $response) {
+    $emri = $request->getAttribute('emri');
+    $response->getBody()->write("Pershendetje, $emri");
 
     return $response;
 });
