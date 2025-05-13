@@ -16,7 +16,8 @@ $app->add(function ($req, $res, $next) {
             ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-
+});
+// Merr te dhenat e telefonave
 $app->get('/api/telefonat_smt', function (Request $request, Response $response) {
     $sql = 'SELECT * FROM telefonat_smt';
 	try{
@@ -35,10 +36,9 @@ $app->get('/api/telefonat_smt', function (Request $request, Response $response) 
 	}
 });
 
-//Fshirja e te dhenave te telefonit
-$app->delete('/api/telefoni_smt/delete/{ID}', function (Request $request, Response $response) {
+//merr vetem te dhenat e telefonit
+$app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $response) {
 	//per te marre vetem nje telefon sipas ID krijohen variablat
-
 	$ID = $request->getAttribute('ID');
 	
     $sql = "SELECT * FROM telefonat_smt WHERE ID = '$ID'";
@@ -60,9 +60,6 @@ $app->delete('/api/telefoni_smt/delete/{ID}', function (Request $request, Respon
 
 
 //shtimi i te dhenave te telefonit
-
-//shtimi i te dhenave te telefonit
-
 $app->post('/api/telefoni_smt/add', function (Request $request, Response $response) {
 	
 	$ModeliTelefonit_SMT = $request->getParam('ModeliTelefonit_SMT');
@@ -105,12 +102,6 @@ $app->post('/api/telefoni_smt/add', function (Request $request, Response $respon
 $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response $response) {
 	//per te marre vetem nje telefon sipas ID krijohen variablat
 
-//Modifikimi i te dhenave te telefonit
-
-$app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response $response) {
-	//per te marre vetem nje telefon sipas ID krijohen variablat
->>>>>>> 2d568ec92344d4dfc77f1fdeca23fd571ba0641c
-
 	$ID = $request->getAttribute('ID');
 	$ModeliTelefonit_SMT = $request->getParam('ModeliTelefonit_SMT');
 	$SistemiOperativTelefonit_SMT = $request->getParam('SistemiOperativTelefonit_SMT');
@@ -149,15 +140,9 @@ $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response 
 });
 
 
-<<<<<<< HEAD
-//Fshirja e te dhenave te telefonit
-$app->delete('/api/telefoni_smt/delete/{ID}', function (Request $request, Response $response) {
-	//per te marre vetem nje femi sipas ID krijohen variablat
-
 //Fshirja e te dhenave te telefonit
 $app->delete('/api/telefoni_smt/delete/{ID}', function (Request $request, Response $response) {
 	//per te marre vetem nje telefon sipas ID krijohen variablat
->>>>>>> 2d568ec92344d4dfc77f1fdeca23fd571ba0641c
 	$ID = $request->getAttribute('ID');
 	
     $sql = "DELETE FROM telefonat_smt WHERE ID = '$ID'";
