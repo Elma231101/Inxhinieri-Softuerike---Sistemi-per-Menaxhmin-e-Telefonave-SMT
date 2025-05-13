@@ -100,7 +100,6 @@ $app->post('/api/telefoni_smt/add', function (Request $request, Response $respon
 
 
 
-<<<<<<< HEAD
 //Modifikimi i te dhenave te telefonit
 
 $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response $response) {
