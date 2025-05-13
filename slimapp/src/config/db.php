@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
     class db {
     // Pasqyrimi
     private $dbhost = 'localhost';
@@ -7,14 +6,13 @@
     private $dbpass = '';
     private $dbname = 'smt';
     private $dbport = '3307'; // Vendosim portën këtu
-=======
+
     class db{
         // Pasqyrimi
         private $dbhost = 'localhost';
         private $dbuser = 'root';
         private $dbpass = '';
         private $dbname = 'smt';
->>>>>>> 2d568ec92344d4dfc77f1fdeca23fd571ba0641c
 
     // Lidhja
     public function connect() {
