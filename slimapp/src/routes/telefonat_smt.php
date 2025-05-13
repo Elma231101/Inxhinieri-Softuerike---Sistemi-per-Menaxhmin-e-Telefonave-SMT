@@ -18,7 +18,7 @@ $app->add(function ($req, $res, $next) {
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
 <<<<<<< HEAD
-// Merr te dhenat e gjitheve femijeve ne jetimore
+// Merr te dhenat e telefonit
 =======
 // Merr te dhenat e gjithe telefonave
 >>>>>>> 2d568ec92344d4dfc77f1fdeca23fd571ba0641c
@@ -41,9 +41,9 @@ $app->get('/api/telefonat_smt', function (Request $request, Response $response) 
 });
 
 <<<<<<< HEAD
-//merr vetem te dhenat e nje femiu nga jetimorja 
+//merr vetem te dhenat e telefonit
 $app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $response) {
-	//per te marre vetem nje femi sipas ID krijohen variablat
+	//per te marre vetem nje telefon sipas ID krijohen variablat
 =======
 //merr vetem te dhenat e telefonit
 $app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $response) {
@@ -70,7 +70,7 @@ $app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $respon
 
 
 <<<<<<< HEAD
-//shtimi i te dhenave te femiut
+//shtimi i te dhenave te telefonit
 =======
 //shtimi i te dhenave te telefonit
 >>>>>>> 2d568ec92344d4dfc77f1fdeca23fd571ba0641c
@@ -112,10 +112,10 @@ $app->post('/api/telefoni_smt/add', function (Request $request, Response $respon
 
 
 <<<<<<< HEAD
-//Modifikimi i te dhenave te femiut ne jetimore
+//Modifikimi i te dhenave te telefonit
 
 $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response $response) {
-	//per te marre vetem nje femi sipas ID krijohen variablat
+	//per te marre vetem nje telefon sipas ID krijohen variablat
 =======
 //Modifikimi i te dhenave te telefonit
 
@@ -162,7 +162,7 @@ $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response 
 
 
 <<<<<<< HEAD
-//Fshirja e te dhenave te femiut ne jetimore
+//Fshirja e te dhenave te telefonit
 $app->delete('/api/telefoni_smt/delete/{ID}', function (Request $request, Response $response) {
 	//per te marre vetem nje femi sipas ID krijohen variablat
 =======
