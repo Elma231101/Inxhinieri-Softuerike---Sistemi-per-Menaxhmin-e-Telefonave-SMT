@@ -69,11 +69,10 @@ $app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $respon
 });
 
 
-<<<<<<< HEAD
 //shtimi i te dhenave te telefonit
-=======
+
 //shtimi i te dhenave te telefonit
->>>>>>> 2d568ec92344d4dfc77f1fdeca23fd571ba0641c
+
 $app->post('/api/telefoni_smt/add', function (Request $request, Response $response) {
 	
 	$ModeliTelefonit_SMT = $request->getParam('ModeliTelefonit_SMT');
