@@ -165,7 +165,7 @@ $app->put('/api/telefoni_smt/update/{ID}', function (Request $request, Response 
 //Fshirja e te dhenave te telefonit
 $app->delete('/api/telefoni_smt/delete/{ID}', function (Request $request, Response $response) {
 	//per te marre vetem nje femi sipas ID krijohen variablat
-=======
+
 //Fshirja e te dhenave te telefonit
 $app->delete('/api/telefoni_smt/delete/{ID}', function (Request $request, Response $response) {
 	//per te marre vetem nje telefon sipas ID krijohen variablat
