@@ -6,13 +6,7 @@
     private $dbpass = '';
     private $dbname = 'smt';
     private $dbport = '3307'; // Vendosim portën këtu
-
-    class db{
-        // Pasqyrimi
-        private $dbhost = 'localhost';
-        private $dbuser = 'root';
-        private $dbpass = '';
-        private $dbname = 'smt';
+  
 
     // Lidhja
     public function connect() {
