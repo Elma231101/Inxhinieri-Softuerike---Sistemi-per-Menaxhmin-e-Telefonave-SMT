@@ -20,43 +20,21 @@ $app->add(function ($req, $res, $next) {
 // Merr te dhenat e telefonave
 $app->get('/api/telefonat_smt', function (Request $request, Response $response) {
     $sql = 'SELECT * FROM telefonat_smt';
-	try{
-		//merr objektet ne db
-		$db = new db();
-		//lidhja
-		$db=$db->connect();
-		
-		$stmt = $db->query($sql);
-		$telefonat_smt = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo json_encode($telefonat_smt);
-		
-	} catch(PDOException $e){
-		echo '{"error":{"text": '.$e->getMessage().'}';
-	}
+    try {
+        $db = new db();
+        $db = $db->connect();
+        $stmt = $db->query($sql);
+        $telefonat_smt = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+        return $response->withJson($telefonat_smt);
+    } catch (PDOException $e) {
+        return $response->withJson([
+    		"status" => "error",
+            "message" => "Shërbimi momentalisht nuk është i qasshëm. Provo më vonë."
+        ], 500);
+    }
 });
 
-//merr vetem te dhenat e telefonit
-$app->get('/api/telefoni_smt/{ID}', function (Request $request, Response $response) {
-	//per te marre vetem nje telefon sipas ID krijohen variablat
-	$ID = $request->getAttribute('ID');
-	
-    $sql = "SELECT * FROM telefonat_smt WHERE ID = '$ID'";
-	try{
-		//merr objektet ne db
-		$db = new db();
-		//lidhja
-		$db=$db->connect();
-		
-		$stmt = $db->query($sql);
-		$telefoni_smt = $stmt->fetch(PDO::FETCH_OBJ);
-		$db = null;
-		echo json_encode($telefoni_smt);
-		
-	} catch(PDOException $e){
-		echo '{"error":{"text": '.$e->getMessage().'}';
-	}
-});
 
 
 //shtimi i te dhenave te telefonit
