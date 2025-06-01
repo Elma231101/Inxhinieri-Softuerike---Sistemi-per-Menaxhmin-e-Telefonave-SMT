@@ -1,36 +1,22 @@
-name: PHP Slim CI
+version: "3.8"
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+services:
+  app:
+    image: php:7.4-cli
+    container_name: php-slim-app
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+      - ./vendor:/var/www/html/vendor
+    ports:
+      - "8080:8080"
+    command: php -S 0.0.0.0:8080 -t public
+    depends_on:
+      - redis
 
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
-
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-        extensions: mbstring, pdo_mysql, mysqli, curl
-        ini-values: post_max_size=256M, upload_max_filesize=256M
-
-    - name: Validate composer.json and composer.lock
-      working-directory: slimapp
-      run: composer validate --strict
-
-    - name: Install Composer dependencies
-      working-directory: slimapp
-      run: composer install --no-progress --no-suggest --prefer-dist
-
-    # Nëse ke teste (p.sh PHPUnit), shto këtu:
-    #- name: Run PHPUnit tests
-    #  working-directory: slimapp
-    #  run: vendor/bin/phpunit --configuration phpunit.xml || echo "No tests found"
+  redis:
+    image: redis:6-alpine
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    restart: always
