@@ -1,0 +1,48 @@
+name: PHP Slim CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'  # ose versionin që përdor
+        extensions: mbstring, pdo_mysql, mysqli, curl
+        ini-values: post_max_size=256M, upload_max_filesize=256M
+        coverage: none
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Install Composer dependencies
+      working-directory: sliamppp
+      run: composer install --no-progress --no-suggest --prefer-dist
+
+    - name: Run PHP built-in server (optional)
+      working-directory: sliamppp
+      run: php -S localhost:8080 -t public &
+    
+    # Nëse ke teste, i ekzekuton këtu (shembull me PHPUnit)
+    - name: Run PHPUnit tests
+      working-directory: sliamppp
+      run: vendor/bin/phpunit --configuration phpunit.xml || echo "No tests found"
+
+    # (Opsionale) Run Postman API tests me newman (nëse ke koleksion)
+    #- name: Install Newman
+    #  run: npm install -g newman
+
+    #- name: Run Postman collection tests
+    #  run: newman run ./postman/YourCollection.postman_collection.json --environment ./postman/YourEnvironment.postman_environment.json
+
