@@ -1,22 +1,22 @@
-version: "3.8"
+name: PHP Slim CI
 
-services:
-  app:
-    image: php:7.4-cli
-    container_name: php-slim-app
-    working_dir: /var/www/html
-    volumes:
-      - ./src:/var/www/html
-      - ./vendor:/var/www/html/vendor
-    ports:
-      - "8080:8080"
-    command: php -S 0.0.0.0:8080 -t public
-    depends_on:
-      - redis
+on: [push, pull_request]
 
-  redis:
-    image: redis:6-alpine
-    container_name: redis-server
-    ports:
-      - "6379:6379"
-    restart: always
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'  # zgjidh versionin që përdor
+
+    - name: Install dependencies
+      run: composer install --no-progress --no-suggest --prefer-dist
+
+    - name: Run tests
+      run: vendor/bin/phpunit --configuration phpunit.xml
