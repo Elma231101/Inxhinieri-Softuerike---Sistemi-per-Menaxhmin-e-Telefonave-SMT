@@ -1,4 +1,4 @@
-name: CI/CD Pipeline SMT
+name: CI/CD Pipeline SMT  # e krijuar per front dhe back
 
 on:
   push:
