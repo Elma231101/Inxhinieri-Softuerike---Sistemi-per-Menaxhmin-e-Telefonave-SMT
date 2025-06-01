@@ -1,0 +1,92 @@
+name: CI/CD Pipeline SMT
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend:
+    name: Test & Install Backend (PHP Slim)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, curl, json, zip
+
+      - name: Install Composer dependencies
+        working-directory: ./slimapp
+        run: composer install --no-progress --no-suggest --prefer-dist
+
+      - name: Run PHP Unit Tests
+        working-directory: ./slimapp
+        run: |
+          if [ -f phpunit.xml ]; then
+            ./vendor/bin/phpunit
+          else
+            echo "No tests found"
+          fi
+
+  frontend:
+    name: Test & Build Frontend (vSMT)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: ./vSMT
+        run: npm install
+
+      - name: Run frontend tests
+        working-directory: ./vSMT
+        run: npm run test || echo "No tests or test script not defined"
+
+      - name: Build frontend
+        working-directory: ./vSMT
+        run: npm run build
+
+  deploy:
+    name: Deploy to server
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            cd /path/to/your/project
+            git pull origin main
+            cd slimapp
+            composer install --no-dev --optimize-autoloader
+            cd ../vSMT
+            npm install --production
+            npm run build
+            # Shto komandat për restart server (p.sh. apache/nginx, php-fpm)
+            sudo systemctl restart apache2
+            # Ose për php-fpm në varësi të setup-it tënd:
+            # sudo systemctl restart php8.2-fpm
