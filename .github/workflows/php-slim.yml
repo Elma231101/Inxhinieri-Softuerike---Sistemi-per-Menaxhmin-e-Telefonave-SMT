@@ -1,0 +1,30 @@
+name: Slim PHP CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, pdo, pdo_mysql
+
+      - name: Install Composer dependencies
+        run: |
+          cd sliamppp
+          composer install
+
+      - name: Validate PHP files
+        run: |
+          find sliamppp -name "*.php" -print0 | xargs -0 -n1 php -l
