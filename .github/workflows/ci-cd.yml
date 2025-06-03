@@ -61,32 +61,4 @@ jobs:
         working-directory: ./vSMT
         run: npm run build
 
-  # deploy:
-  #   name: Deploy to server
-  #   needs: [backend, frontend]
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-
-  #     - name: Deploy via SSH
-  #       uses: appleboy/ssh-action@v0.1.6
-  #       with:
-  #         host: ${{ secrets.SERVER_IP }}
-  #         username: ${{ secrets.SERVER_USER }}
-  #         key: ${{ secrets.SERVER_SSH_KEY }}
-  #         port: 22
-  #         script: |
-  #           cd /path/to/your/project
-  #           git pull origin main
-  #           cd slimapp
-  #           composer install --no-dev --optimize-autoloader
-  #           cd ../vSMT
-  #           npm install --production
-  #           npm run build
-  #           # Shto komandat për restart server (p.sh. apache/nginx, php-fpm)
-  #           sudo systemctl restart apache2
-  #           # Ose për php-fpm në varësi të setup-it tënd:
-  #           # sudo systemctl restart php8.2-fpm
+  
